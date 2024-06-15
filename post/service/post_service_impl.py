@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from aiomysql import Pool
 
@@ -22,3 +22,6 @@ class PostServiceImpl(PostService):
 
     async def list_posts(self) -> List[Post]:
         return await self.post_repository.list()
+
+    async def get_post_by_id(self, post_id: int) -> Optional[Post]:
+        return await self.post_repository.findById(post_id)

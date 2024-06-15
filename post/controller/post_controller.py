@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from typing import List
 from aiomysql import Pool
 
@@ -24,3 +24,10 @@ async def create_post(post_request: CreatePostRequest, post_service: PostService
 async def read_posts(post_service: PostServiceImpl = Depends(get_post_service)):
     posts = await post_service.list_posts()
     return posts
+
+@post_router.get("/read/{post_id}", response_model=Post)
+async def read_post(post_id: int, post_service: PostServiceImpl = Depends(get_post_service)):
+    post = await post_service.get_post_by_id(post_id)
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    return post

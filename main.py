@@ -72,6 +72,7 @@
 #     uvicorn.run(app, host="127.0.0.1", port=33333)
 
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from post.controller.post_controller import post_router
 from async_db.database import getMysqlPool
 from random_number.controller.random_number_controller import randomNumberRouter
@@ -87,6 +88,18 @@ async def startup_event():
 async def shutdown_event():
     app.state.db_pool.close()
     await app.state.db_pool.wait_closed()
+
+origins = [
+    "http://localhost:8081",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # 라우터 등록
 app.include_router(post_router, prefix="/posts")
