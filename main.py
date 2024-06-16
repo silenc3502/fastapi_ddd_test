@@ -13,7 +13,9 @@
 # if __name__ == "__main__":
 #     import uvicorn
 #     uvicorn.run(app, host="127.0.0.1", port=33333)
+import os
 
+from dotenv import load_dotenv
 # from fastapi import FastAPI, Depends, HTTPException
 # from pydantic import BaseModel
 # from aiomysql import create_pool, Pool
@@ -91,9 +93,14 @@ async def shutdown_event():
     app.state.db_pool.close()
     await app.state.db_pool.wait_closed()
 
-origins = [
-    "http://localhost:8081",
-]
+load_dotenv()
+
+# CORS settings
+origins = os.getenv("ALLOWED_ORIGINS", "").split(",")
+
+# origins = [
+#     "http://localhost:8081",
+# ]
 
 app.add_middleware(
     CORSMiddleware,
