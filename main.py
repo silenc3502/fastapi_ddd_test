@@ -77,6 +77,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from logistic_regression.controller.logistic_regression_controller import logisticRegressionRouter
+from polynomial_regression.controller.polynomial_regression_controller import polynomialRegressionRouter
 from post.controller.post_controller import post_router
 from async_db.database import getMysqlPool
 from random_number.controller.random_number_controller import randomNumberRouter
@@ -116,6 +117,7 @@ app.include_router(post_router, prefix="/posts")
 app.include_router(randomNumberRouter, prefix="/random-number")
 app.include_router(logisticRegressionRouter)
 app.include_router(trainTestEvaluationRouter)
+app.include_router(polynomialRegressionRouter)
 
 if __name__ == "__main__":
     import uvicorn
