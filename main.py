@@ -80,6 +80,7 @@ from logistic_regression.controller.logistic_regression_controller import logist
 from post.controller.post_controller import post_router
 from async_db.database import getMysqlPool
 from random_number.controller.random_number_controller import randomNumberRouter
+from train_test_evaluation.controller.train_test_evaluation_controller import trainTestEvaluationRouter
 
 app = FastAPI()
 
@@ -114,6 +115,7 @@ app.add_middleware(
 app.include_router(post_router, prefix="/posts")
 app.include_router(randomNumberRouter, prefix="/random-number")
 app.include_router(logisticRegressionRouter)
+app.include_router(trainTestEvaluationRouter)
 
 if __name__ == "__main__":
     import uvicorn
