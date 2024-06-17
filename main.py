@@ -76,6 +76,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from exponential_regression.controller.exponential_regression_controller import exponentialRegressionRouter
 from logistic_regression.controller.logistic_regression_controller import logisticRegressionRouter
 from polynomial_regression.controller.polynomial_regression_controller import polynomialRegressionRouter
 from post.controller.post_controller import post_router
@@ -118,6 +119,7 @@ app.include_router(randomNumberRouter, prefix="/random-number")
 app.include_router(logisticRegressionRouter)
 app.include_router(trainTestEvaluationRouter)
 app.include_router(polynomialRegressionRouter)
+app.include_router(exponentialRegressionRouter)
 
 if __name__ == "__main__":
     import uvicorn
