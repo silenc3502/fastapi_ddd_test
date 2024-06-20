@@ -294,4 +294,6 @@ pyrightconfig.json
 # exclude *.pyc
 *.pyc
 async_db/__pycache__/database.cpython-38.pyc
-*.pyc
+
+# exclude *.csv
+*.csv

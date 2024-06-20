@@ -81,6 +81,7 @@ from logistic_regression.controller.logistic_regression_controller import logist
 from polynomial_regression.controller.polynomial_regression_controller import polynomialRegressionRouter
 from post.controller.post_controller import post_router
 from async_db.database import getMysqlPool
+from random_forest.controller.random_forest_controller import randomForestRouter
 from random_number.controller.random_number_controller import randomNumberRouter
 from train_test_evaluation.controller.train_test_evaluation_controller import trainTestEvaluationRouter
 
@@ -120,6 +121,7 @@ app.include_router(logisticRegressionRouter)
 app.include_router(trainTestEvaluationRouter)
 app.include_router(polynomialRegressionRouter)
 app.include_router(exponentialRegressionRouter)
+app.include_router(randomForestRouter)
 
 if __name__ == "__main__":
     import uvicorn
