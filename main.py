@@ -82,6 +82,7 @@ from kmeans_analysis.controller.kmeans_controller import kmeansRouter
 from logistic_regression.controller.logistic_regression_controller import logisticRegressionRouter
 from natural_language_processing.controller.natural_language_processing_controller import \
     naturalLanguageProcessingRouter
+from orders_analysis.controller.orders_analysis_controller import ordersAnalysisRouter
 from polynomial_regression.controller.polynomial_regression_controller import polynomialRegressionRouter
 from post.controller.post_controller import post_router
 from async_db.database import getMysqlPool
@@ -154,6 +155,7 @@ app.include_router(randomForestRouter)
 app.include_router(wordCloudRouter)
 app.include_router(naturalLanguageProcessingRouter)
 app.include_router(kmeansRouter)
+app.include_router(ordersAnalysisRouter)
 
 if __name__ == "__main__":
     import uvicorn

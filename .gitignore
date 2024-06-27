@@ -297,3 +297,11 @@ async_db/__pycache__/database.cpython-38.pyc
 
 # exclude *.csv
 *.csv
+
+# exclude *.xlsx
+*.xlsx
+
+# exclude *.joblib
+*.joblib
+*.h5
+*.pkl
