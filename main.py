@@ -21,6 +21,7 @@ from logistic_regression.controller.logistic_regression_controller import logist
 from natural_language_processing.controller.natural_language_processing_controller import \
     naturalLanguageProcessingRouter
 from orders_analysis.controller.orders_analysis_controller import ordersAnalysisRouter
+from pca.controller.pca_controller import pcaRouter
 from polynomial_regression.controller.polynomial_regression_controller import polynomialRegressionRouter
 from post.controller.post_controller import post_router
 from async_db.database import getMysqlPool
@@ -183,6 +184,7 @@ app.include_router(ordersAnalysisRouter)
 app.include_router(gradientDescentRouter)
 app.include_router(decisionForestRouter)
 app.include_router(llmBasicRouter)
+app.include_router(pcaRouter)
 
 @app.post("/process")
 async def create_event(request: Request):
