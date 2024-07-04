@@ -12,6 +12,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from convolution_neural_network.controller.cnn_controller import convolutionNeuralNetworkRouter
 from decision_forest.controller.decision_forest_controller import decisionForestRouter
 from exponential_regression.controller.exponential_regression_controller import exponentialRegressionRouter
 from gradient_descent.controller.gradient_descent_controller import gradientDescentRouter
@@ -185,6 +186,7 @@ app.include_router(gradientDescentRouter)
 app.include_router(decisionForestRouter)
 app.include_router(llmBasicRouter)
 app.include_router(pcaRouter)
+app.include_router(convolutionNeuralNetworkRouter)
 
 @app.post("/process")
 async def create_event(request: Request):
