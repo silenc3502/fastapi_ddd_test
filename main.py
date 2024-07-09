@@ -21,6 +21,7 @@ from llm_basic.controller.llm_basic_controller import llmBasicRouter
 from logistic_regression.controller.logistic_regression_controller import logisticRegressionRouter
 from natural_language_processing.controller.natural_language_processing_controller import \
     naturalLanguageProcessingRouter
+from openai_fine_tuning.controller.oft_controller import openAiFineTuningTestRouter
 from orders_analysis.controller.orders_analysis_controller import ordersAnalysisRouter
 from pca.controller.pca_controller import pcaRouter
 from polynomial_regression.controller.polynomial_regression_controller import polynomialRegressionRouter
@@ -187,6 +188,7 @@ app.include_router(decisionForestRouter)
 app.include_router(llmBasicRouter)
 app.include_router(pcaRouter)
 app.include_router(convolutionNeuralNetworkRouter)
+app.include_router(openAiFineTuningTestRouter)
 
 @app.post("/process")
 async def create_event(request: Request):
