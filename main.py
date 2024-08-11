@@ -30,6 +30,7 @@ from async_db.database import getMysqlPool
 from random_forest.controller.random_forest_controller import randomForestRouter
 from random_number.controller.random_number_controller import randomNumberRouter
 from train_test_evaluation.controller.train_test_evaluation_controller import trainTestEvaluationRouter
+from transition_learning.controller.transition_learning_controller import transitionLearningRouter
 from word_cloud.controller.word_cloud_controller import wordCloudRouter
 from async_db.database import createTableIfNecessary
 
@@ -73,33 +74,33 @@ async def lifespan(app: FastAPI):
     app.state.db_pool = await getMysqlPool()
     await createTableIfNecessary(app.state.db_pool)
 
-    app.state.stop_event = asyncio.Event()
-
-    app.state.kafka_producer = AIOKafkaProducer(
-        bootstrap_servers='localhost:9092',
-        client_id="fastapi-kafka-producer"
-    )
-
-    app.state.kafka_consumer = AIOKafkaConsumer(
-        'completion_topic',
-        bootstrap_servers='localhost:9092',
-        group_id="my_group",
-        client_id="fastapi-kafka-consumer"
-    )
-
-    app.state.kafka_test_consumer = AIOKafkaConsumer(
-        "test-topic",
-        bootstrap_servers='localhost:9092',
-        group_id="another_group",
-        client_id="fastapi-kafka-consumer"
-    )
-
-    await app.state.kafka_producer.start()
-    await app.state.kafka_consumer.start()
-    await app.state.kafka_test_consumer.start()
-
-    asyncio.create_task(consume(app))
-    asyncio.create_task(testTopicConsume(app))
+    # app.state.stop_event = asyncio.Event()
+    #
+    # app.state.kafka_producer = AIOKafkaProducer(
+    #     bootstrap_servers='localhost:9092',
+    #     client_id="fastapi-kafka-producer"
+    # )
+    #
+    # app.state.kafka_consumer = AIOKafkaConsumer(
+    #     'completion_topic',
+    #     bootstrap_servers='localhost:9092',
+    #     group_id="my_group",
+    #     client_id="fastapi-kafka-consumer"
+    # )
+    #
+    # app.state.kafka_test_consumer = AIOKafkaConsumer(
+    #     "test-topic",
+    #     bootstrap_servers='localhost:9092',
+    #     group_id="another_group",
+    #     client_id="fastapi-kafka-consumer"
+    # )
+    #
+    # await app.state.kafka_producer.start()
+    # await app.state.kafka_consumer.start()
+    # await app.state.kafka_test_consumer.start()
+    #
+    # asyncio.create_task(consume(app))
+    # asyncio.create_task(testTopicConsume(app))
 
     try:
         yield
@@ -107,11 +108,11 @@ async def lifespan(app: FastAPI):
         app.state.db_pool.close()
         await app.state.db_pool.wait_closed()
 
-        app.state.stop_event.set()
-
-        await app.state.kafka_producer.stop()
-        await app.state.kafka_consumer.stop()
-        await app.state.kafka_test_consumer.stop()
+        # app.state.stop_event.set()
+        #
+        # await app.state.kafka_producer.stop()
+        # await app.state.kafka_consumer.stop()
+        # await app.state.kafka_test_consumer.stop()
 
 
 async def consume(app: FastAPI):
@@ -189,6 +190,7 @@ app.include_router(llmBasicRouter)
 app.include_router(pcaRouter)
 app.include_router(convolutionNeuralNetworkRouter)
 app.include_router(openAiFineTuningTestRouter)
+app.include_router(transitionLearningRouter)
 
 @app.post("/process")
 async def create_event(request: Request):
@@ -217,5 +219,5 @@ async def websocket_endpoint(websocket: WebSocket):
 
 if __name__ == "__main__":
     import uvicorn
-    asyncio.run(create_kafka_topics())
+    # asyncio.run(create_kafka_topics())
     uvicorn.run(app, host="127.0.0.1", port=33333)
